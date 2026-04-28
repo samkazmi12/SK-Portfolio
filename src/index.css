@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand: cyan/teal glow on deep teal-black */
+    --background: 190 75% 7%;            /* #041B22 */
+    --foreground: 195 40% 93%;           /* #E6F1F5 */
+
+    --card: 192 68% 11%;                 /* #0A2A36 */
+    --card-foreground: 195 40% 93%;
+
+    --popover: 192 68% 11%;
+    --popover-foreground: 195 40% 93%;
+
+    --primary: 187 85% 53%;              /* #22D3EE */
+    --primary-foreground: 190 75% 7%;
+
+    --primary-glow: 174 80% 54%;         /* #2EE6D6 */
+
+    --secondary: 192 65% 9%;             /* #071F2A */
+    --secondary-foreground: 195 40% 93%;
+
+    --muted: 192 50% 14%;
+    --muted-foreground: 192 19% 69%;     /* #9FBAC2 */
+
+    --accent: 187 85% 53%;
+    --accent-foreground: 190 75% 7%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 195 40% 93%;
+
+    --border: 192 56% 17%;               /* #123844 */
+    --input: 192 56% 17%;
+    --ring: 187 85% 53%;
+
+    --radius: 1rem;
+
+    --low-emphasis: 192 16% 50%;         /* #6B8A93 */
+
+    --gradient-primary: linear-gradient(135deg, hsl(187 85% 53%), hsl(174 80% 54%));
+    --gradient-bg: linear-gradient(180deg, hsl(190 75% 7%), hsl(192 65% 9%));
+    --gradient-radial-glow: radial-gradient(circle at var(--mx,50%) var(--my,30%), hsl(187 85% 53% / 0.18), transparent 60%);
+
+    --shadow-glow: 0 0 40px hsl(187 85% 53% / 0.3);
+    --shadow-glow-strong: 0 0 60px hsl(187 85% 53% / 0.45);
+    --shadow-card: 0 10px 40px -10px hsl(190 75% 3% / 0.6);
+
+    --glass: 0 0% 100% / 0.05;
+
+    --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image: var(--gradient-bg);
+    background-attachment: fixed;
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection {
+    background: hsl(var(--primary) / 0.3);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer components {
+  .glass {
+    background: hsl(var(--card) / 0.5);
+    backdrop-filter: blur(14px);
+    border: 1px solid hsl(var(--border) / 0.6);
+  }
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glow-ring {
+    box-shadow: var(--shadow-glow);
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.4) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+  .noise {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+  .animate-fade-up {
+    animation: fade-up 0.8s var(--transition-smooth) both;
+  }
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+  .animate-blink {
+    animation: blink 1s step-end infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
+  50% { box-shadow: 0 0 50px hsl(var(--primary) / 0.6); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
